@@ -1,0 +1,384 @@
+#!/bin/bash
+#Name: Sandesh Bhurtyal
+#London met_id: 20049019
+
+#Varibale declararion
+user_name=$1 #storing the value of first parameter to user_name varibale
+user_id=$2 	#storing the value of second parameter to user_id varibale
+
+if [ $# = 2 ] #Initializing total number of parameters
+then
+if ! [[ "$1" == [Aa-Zz] || [0-9] && "$2" =~ [0-9] ]] # Applying if not condition
+then
+	echo ""
+	echo "======================================================================"
+	echo ""
+	echo "   	Please input first parameter as letter or number.          "
+	echo "    	Please input second parameter as number or number with letters."  #Print statement
+	echo "    	Example: bash 20049019cwii Sandesh 1             "
+	echo ""
+	echo "======================================================================"
+	echo ""
+	exit #Exiting the shell
+fi
+fi
+if [ $# -eq 0 ] #Checking wheather if total number of parameters is equal to 0
+then
+	echo ""
+    echo "==========================================================="
+    echo ""
+    echo "             Your two parameter are Empty!!!!               "
+    echo "       Please give username and user_id respectively.      "
+    echo "       Example: bash program_name  user_name user_id       "
+    echo ""
+    echo "==========================================================="
+    echo ""
+	exit
+fi
+if [ $# -eq 1 ] #Checking wheather if total number of parameter is equal to 1
+then
+	echo ""
+	echo "==========================================================="
+    echo ""
+	echo "             Your one parameter is Empty!!!!               "
+    echo "       Please give username and user_id respectively.      "
+    echo "       Example: bash program_name  user_name user_id       "
+    echo ""
+    echo "==========================================================="
+    echo ""
+    exit
+fi
+if [ $# -gt 2 ] #Checking wheather if total_number of parameter is greater than 2 
+then
+	echo ""
+	echo "==============================================="
+	echo ""
+	echo "   You cannot give more than 2 parameter"
+	echo ""
+	echo "==============================================="
+	echo ""
+	exit
+fi
+Start(){ #initializing function Start, where it displays a certain message.
+
+	echo ""
+	echo "+----------------------------------------------------------------------------+"		
+	echo "|	Hello Player!! Firstly You Need To Login To The System!!             |"
+	echo "+----------------------------------------------------------------------------+"
+	echo ""
+	sleep 0.5
+
+}
+Start #retreiving function Start
+
+#initialization of Login function
+#It displays warning message of wrong secret key for user.  
+Login(){
+
+	echo "!!!Please Enter The Secret Key To Login The System!!!"
+	echo ""
+	echo "+-------------------------------------------------------------------------------------+"
+	echo "|    U DON'T HAVE TO WORRY !! YOUR SECRET KEY IS INVISIBLE :)                         |" 
+	echo "+-------------------------------------------------------------------------------------+"
+	echo ""
+	echo "========================================================================="
+	echo "********* You will get only 3 attempts to enter the secret key **********"
+	echo "========================================================================="
+
+
+password="123" # setting a value to password
+for ((i=1; i<5; i++))
+do
+	if [[ $i -eq 4 ]] #condtional statement
+	then
+		echo ""
+		echo "+----------------------------------------+"
+		echo " You have entered worng key for 3 times."
+		echo " Wating for program to exit in.... "
+		echo "+----------------------------------------+"
+		figlet ".......3"
+		sleep 1					#It runs the next instruction after 1 second 
+		figlet ".....2"
+		sleep 1
+		figlet "..1"
+		echo ""
+		figlet "Program Exited" #printing pattern
+		exit #terminating the program
+	fi
+	echo ""
+	echo "Please Enter the Secret Key"
+	echo ""
+	read -s pw #
+	#Reading the password/secret key from the user. 
+	#"-s" makes password invisble while typing password.
+
+	if [[ $pw == "$password" ]] #checking for correct password
+	then
+		i=4;
+		echo "+-----------------------------------------------------+"
+		echo " ***You have successfully logged in to the system***"
+		echo "+-----------------------------------------------------+"
+		echo ""
+		sleep 1.5
+
+	else
+		echo "The Key you entered is incorrect!! Please try again!! $i incorrect attempt :("
+		echo ""
+	fi
+done
+
+}
+Login #Retreiving Login function
+Welcome(){ #initializing function Welcome where it welcomes the user with his/her id and with their name
+	echo ""
+	echo ""
+	echo "+-----------------------------------------------------------------+"
+	figlet "Welcome to the Band Guess Game                       "
+	echo "+-----------------------------------------------------------------+"
+	echo ""
+	sleep 0.5
+	echo "+=====================================================================+"
+	echo "         	              YOUR USER_ID : $user_id               "			# Getting the value from decleared variable
+	echo "+=====================================================================+"
+	echo ""
+	echo "+=====================================================================+"
+ 	echo "                    WELCOME $user_name TO THE GAME !!!!!!             "   # Getting the value from decleared variable                                                                                                   
+	echo "+=====================================================================+"  
+	echo ""
+	#getting the time and date of execution
+	time=$(date +%r)
+	date=$(date +%d-%b-%Y)
+	echo "+=====================================================================+"
+	echo "     	Today's date and time is $date $time                        "	 # Getting the value from decleared variable  
+	echo "+=====================================================================+"      
+	echo ""
+	figlet "Now Lets Play The Guessing Game {-_-} "
+	
+sleep 0.5
+
+}
+Welcome #retrieving Welcome function
+
+Bands(){ #initializing Bands function where it displays band details and let user to guess band
+	
+	echo ""
+	echo "+==================================================================+"
+	echo "								         "
+	echo "	  These are five bands that has played beautiful music.          "
+	echo "	     Now it's ur turn to guess the best music brand :)           "
+	echo "	      Please select any codes of Bands from the table.           "
+	echo ""
+	echo "+==================================================================+"
+
+	echo "+---------------------------+-----------------------------------------+"
+	echo "| 	Bands	 	    | 	 			Code	      |"
+	echo "+---------------------------+-----------------------------------------+"
+	echo "| 	Beatles		    | 	 			BEA	      |"
+	echo "+---------------------------+-----------------------------------------+"
+	echo "| 	AC/DC		    | 	 			AD	      |"
+	echo "+---------------------------+-----------------------------------------+"
+	echo "| 	Queen		    | 	 			QUE	      |"
+	echo "+---------------------------+-----------------------------------------+"
+	echo "| 	Blondie		    | 	 		        BLO	      |"
+	echo "+---------------------------+-----------------------------------------+"
+	echo "| 	Nirvana		    | 	 			NIR	      |"
+	echo "+---------------------------+-----------------------------------------+"
+
+
+	echo "*** Lets Start the fun game of Guessing ***" 
+	echo ""
+	bTeam=0 #initizlizing value of band as 0
+
+	until [[ $bTeam = "BEA" ]] #using until to run a bunch of statement until the condition is met
+	do
+		
+	read -p " Enter the Band code to know which is best band than others from the above table:  " bTeam #reading the bands code
+	echo ""
+	case $bTeam in #using case statement for different conditions
+		AD) echo " Incorrect Guess!! Please try guessing again!!" #if user give AD input it prints incorrect message
+		     echo "";;
+		BEA)	echo "-----------------------------------------------------------------------------------------------------------------------------"    #if user give BEA input it prints correct message
+			echo "*** CONGRATULATIONS ***"
+			echo ""
+			echo "Your guessed it correct!!"
+			echo ""
+			echo "ABOUT BEATLES: "
+			echo ""
+			echo -e "The Beatles were an English rock band composed of John Lennon, Paul McCartney, George Harrison, and Ringo Starr that formed in Liverpool in 1960.\nThey are often recognized as the most influential band of all time and were responsible for the establishment of 1960s counterculture and the status of popular music as an art form."
+			echo "-----------------------------------------------------------------------------------------------------------------------------"
+			echo ""
+			figlet "Now Lets See the Five Members of the Band."
+			echo ""
+			sleep 1;;
+		QUE) echo " Incorrect Guess!! Please try guessing again!!"
+		     echo "";;
+		BLO) echo " Incorrect Guess!! Please try guessing again!!"
+		     echo "";;
+		NIR) echo " Incorrect Guess!! Please try guessing again!!"
+		     echo "";;
+		*)   echo " Please enter given code given in the table!!" #checking for other all other cases
+			echo "";;
+	esac
+done	
+}
+
+Bands #retreiving Bands function
+Band_Members(){ #initializing Band_Members function where user guess three members at first from 5 and later choose one from 3 and display the message according to the guess.
+	echo ""
+	echo "You need to choose three band members among the others from the table below : "
+	    
+	echo "+---------------------------+-----------------------------------------+"
+	echo "| 	Band Members 	    | 	 			Code	      |"
+	echo "+---------------------------+-----------------------------------------+"
+	echo "| 	John Lennon	    | 	 			JL	      |"
+	echo "+---------------------------+-----------------------------------------+"
+	echo "| 	Angus Young	    | 	 			AY	      |"
+	echo "+---------------------------+-----------------------------------------+"
+	echo "| 	Freddie Mercury	    | 	 			FM	      |"
+	echo "+---------------------------+-----------------------------------------+"
+	echo "| 	Debbie Harry	    | 	 		        DH	      |"
+	echo "+---------------------------+-----------------------------------------+"
+	echo "| 	Kurt Cobain	    | 	 			KC	      |"
+	echo "+---------------------------+-----------------------------------------+"
+	echo ""
+
+
+while [ true ] #It runs without conditions until the break statement executes inside the loop.
+#While Execute given set of command repeatedly until given boolean condition is False
+do
+	read -p "Please type three codes out of these five band members : " p1 p2 p3 p4 #reading the input of user	
+	echo ""
+	if [[ -z "$p1" || -z "$p2" || -z "$p3" ]] #conditional statements weater parameters are empty or not
+	then
+		echo "Invalid input. We cannot put empty input :(" 
+		echo ""
+	elif [ ! -z $p4 ] # This loop checks wheather fourth parameter is non-empty
+	then
+		echo "You cannot pass more than 3 parameters."
+		echo ""
+	elif [ $p1 == $p2 ] || [ $p1 == $p3 ] || [ $p2 == $p3 ] #conditional statements where it checks the weather given three parameters are same or not
+	then
+		echo "You cannot input same code again."
+		echo ""
+	elif [[ $p1 == "JL" || $p1 == "AY" || $p1 == "FM" || $p1 == "DH" || $p1 == "KC" ]] && [[ $p2 == "JL" ||  # conditional statement where three parmeters can have possible values
+		$p2 == "AY" || $p2 == "FM" || $p2 == "DH" || $p2 == "KC" ]] && [[ $p3 == "JL" || $p3 == "AY" || 
+		$p3 == "FM" || $p3 == "DH" || $p3 == "KC" ]]
+	then
+	
+		selected=0
+		until [[ $selected == 1 ]] || [[ $selected == 2 ]] || [[ $selected == 3 ]] # Executes given set of command as long as the given condition will be false
+		do
+		echo "_______________________________________________________________________________________"
+		echo ""
+		echo "The three members of band you have choosen has been displayed."
+		echo ""
+		echo "+---------------------------+-----------------------------------------+"
+		echo "| 	Band Members        | 	 			Code	      |"
+		echo "+---------------------------+-----------------------------------------+"
+		echo "| 	1.	   	    | 	 			$p1	      |"
+		echo "+---------------------------+-----------------------------------------+"
+		echo "| 	2.	    	    | 	 			$p2	      |"
+		echo "+---------------------------+-----------------------------------------+"
+		echo "| 	3.	    	    | 	 			$p3	      |"
+		echo "+---------------------------+-----------------------------------------+"
+		echo ""
+		echo "________________________________________________________________________________________"
+
+		echo "                 Note: Please Don't Input any Invaild or Empty number!!"		
+		echo "____________________________________________________________________________________"
+		echo ""
+		echo "-----------------------------------------------------------------------------------------"		
+		read -p 	   " Choose one band member number from above table that you want to know about: " selected		#reading the value of user and storing it into varibale
+		echo "-----------------------------------------------------------------------------------------"			
+		echo ""
+
+		done
+		break  # Terminates the execution of until loop 
+	else
+		echo "Invalid code!! Please enter the code as in the table above!!"
+		echo ""
+	fi
+done
+
+#conditional statements for different selections!
+if [[ $selected == 1 ]]; then
+	file_selected=$p1
+elif [[ $selected == 2 ]]; then
+	file_selected=$p2
+else 
+	file_selected=3
+fi 
+echo ""
+echo "================================================================"
+echo "You have chosen the band_member code: $file_selected"
+echo ""
+
+if [[ -f "$file_selected" ]] # -f verifies the existence of file
+then
+ 	echo "The file for the player is available. Here is what it contains: "
+	echo ""
+	echo "---------------------------------------------------------------------------------------------------------------------------------------"
+	cat $file_selected #reading and displaying the content of the selected file.
+	echo "---------------------------------------------------------------------------------------------------------------------------------------"
+else
+ 	echo "Oops!! The file for the player you looking is not available." 
+	echo "Please start again by guessing the band!!"
+	Bands
+	Band_Members	
+fi
+}
+Band_Members #retreiving band_members function
+
+
+#initializing Repeat function where it ask user wheather to restart the game or end game
+Repeat(){
+	while :
+	do 
+		echo ""
+		echo "-------------------------------------------------------------------------------------------------"
+		read -p " Do you want to re-start the game and play again? Enter y/n : " option #reading the option entered by the user and storing the value into option
+		echo "-------------------------------------------------------------------------------------------------"
+		echo ""
+		while [[ -z $option ]];
+		 do	#checking if the option entered is empty
+			echo ""
+			read -p "Invalid input. Enter y/n: " option
+			echo ""
+		done
+		#different conditional statements
+		if [ $option = y ]
+		then
+			Bands
+			Band_Members
+			Repeat
+
+		elif [ $option = n ]
+		then 
+			echo "
+			+=======================================================+
+			      *****Thank you $fname for playing this guess****
+  		                Hope U Enjoy Playing it!!See u again...
+		    +=======================================================+"
+			echo""
+			echo "-------------------------------"
+			echo ""
+			echo "Now Exiting the program in "
+			figlet "......3"
+			sleep 1
+			figlet "...2"
+			sleep 1
+			figlet "1"
+			echo ""
+			echo "+===============================================================================+"
+			figlet "       Program Exited	       "
+			echo "+===============================================================================+ "
+			exit 0	#terminating the program
+		else
+			echo "Incorrect input. Enter y/n " 
+			Repeat 
+		fi
+	done
+}
+Repeat #retrieving Repeat function
+
+
